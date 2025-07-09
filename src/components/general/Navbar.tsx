@@ -12,16 +12,16 @@ import logoDAW from "@/../public/images/home/Logo-DAW.png";
 
 const menuItems = [
     { name: "HOME", href: "/", icon: Home, desktop: false, mobile: true },
-    { name: "PRODUK", href: "/produk", icon: Tag, desktop: "main", mobile: true },
-    { name: "PROMO", href: "/promo", icon: Megaphone, desktop: "main", mobile: true },
-    { name: "BERITA", href: "/berita", icon: Newspaper, desktop: "main", mobile: true },
-    { name: "EVENT", href: "/event", icon: CalendarDays, desktop: "main", mobile: true },
-    { name: "HUBUNGI KAMI", href: "/hubungi-kami", icon: Phone, desktop: "main", mobile: true },
-    { name: "TENTANG KAMI", href: "/tentang-kami", icon: Info, desktop: "lainnya", mobile: true },
-    { name: "SAFETY RIDING", href: "/safety-riding", icon: Bike, desktop: "lainnya", mobile: true },
-    { name: "JARINGAN", href: "/jaringan", icon: Network, desktop: "lainnya", mobile: true },
-    { name: "KOMUNITAS", href: "/komunitas", icon: Users, desktop: "lainnya", mobile: true },
-    { name: "KARIR", href: "/karir", icon: Briefcase, desktop: "lainnya", mobile: true },
+    { name: "PRODUK", href: "/#", icon: Tag, desktop: "main", mobile: true },
+    { name: "PROMO", href: "/#", icon: Megaphone, desktop: "main", mobile: true },
+    { name: "BERITA", href: "/#", icon: Newspaper, desktop: "main", mobile: true },
+    { name: "EVENT", href: "/#", icon: CalendarDays, desktop: "main", mobile: true },
+    { name: "HUBUNGI KAMI", href: "/#", icon: Phone, desktop: "main", mobile: true },
+    { name: "TENTANG KAMI", href: "/#", icon: Info, desktop: "lainnya", mobile: true },
+    { name: "SAFETY RIDING", href: "/#", icon: Bike, desktop: "lainnya", mobile: true },
+    { name: "JARINGAN", href: "/#", icon: Network, desktop: "lainnya", mobile: true },
+    { name: "KOMUNITAS", href: "/#", icon: Users, desktop: "lainnya", mobile: true },
+    { name: "KARIR", href: "/#", icon: Briefcase, desktop: "lainnya", mobile: true },
 ];
 
 const mainNavItems = menuItems.filter(item => item.desktop === "main");
@@ -68,7 +68,7 @@ const Navbar = () => {
     return (
         <>
             <header className="sticky top-0 inset-x-0 z-50 h-16 bg-white shadow-sm flex items-center justify-between px-4 md:px-6">
-                {/* Mobile Burger + Center Logo (Mobile) */}
+                {/* Mobile Burger + Center Logo */}
                 <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto justify-between md:justify-start">
                     <button
                         onClick={() => setMobileOpen(prev => !prev)}
@@ -80,7 +80,7 @@ const Navbar = () => {
                         <span className={clsx("absolute w-full h-0.5 bg-gray-800 rounded transition-all", mobileOpen ? "-rotate-45" : "translate-y-1.5")} />
                     </button>
 
-                    {/* Logo DAW (Center on Mobile, Left on Desktop) */}
+                    {/* Logo DAW */}
                     <div className="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0">
                         <a href="/" className="block">
                             <Image
@@ -130,7 +130,7 @@ const Navbar = () => {
                 </nav>
 
                 {/* Search & Honda Logo*/}
-                <div className="flex items-center gap-5 h-full md:-mr-6 -mr-4.5">
+                <div className="flex items-center gap-5 h-full md:-mr-6 -mr-4">
                     <button
                         onClick={() => setSearchOpen(true)}
                         className="p-2 text-black hover:text-red-600 transition"
@@ -176,7 +176,6 @@ const Navbar = () => {
                 </button>
             </div>
 
-            {/* Mobile Backdrop */}
             <div
                 className={clsx("fixed inset-0 z-30 bg-black/50 transition-opacity duration-300 md:hidden", mobileOpen ? "opacity-100" : "opacity-0 pointer-events-none")}
                 onClick={closeAll}

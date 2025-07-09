@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// --- Data for the slides ---
 const slides = [
     {
         desktop: "/images/home/hero-slide1.jpg",
@@ -33,7 +32,6 @@ const slides = [
     },
 ];
 
-// --- Custom Hook for Media Query ---
 const useMediaQuery = (query: string): boolean => {
     const [matches, setMatches] = useState(false);
 
@@ -54,13 +52,10 @@ const useMediaQuery = (query: string): boolean => {
     return matches;
 };
 
-
-// --- The Hero Slider Component ---
 const HeroSlider = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const isMobile = useMediaQuery('(max-width: 768px)');
 
-    // --- Navigation Functions ---
     const prevSlide = useCallback(() => {
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? slides.length - 1 : prevIndex - 1
@@ -77,7 +72,6 @@ const HeroSlider = () => {
         setCurrentIndex(index);
     };
 
-    // --- Auto-slide Effect ---
     useEffect(() => {
         const slideInterval = setInterval(nextSlide, 7000);
         return () => clearInterval(slideInterval);
@@ -85,7 +79,7 @@ const HeroSlider = () => {
 
     return (
         <div className="relative h-[93vh] w-full overflow-hidden bg-black">
-            {/* Slides Container - uses flex and transform for sliding animation */}
+            {/* Slides Container */}
             <div
                 className="flex h-full w-full transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}

@@ -7,11 +7,11 @@ import dayaWisesaPlace from "@/../public/images/home/about-us.jpg";
 
 const AboutUs = () => {
     return (
-        <section className="bg-white text-gray-800">
+        <section className="bg-gray-50 text-gray-800">
             <div className="container mx-auto max-w-7xl px-6 pb-12 pt-20 lg:pb-20 lg:pt-40">
                 <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
 
-                    {/* --- Image Section --- */}
+                    {/* Image Section */}
                     <div className="order-last lg:order-first">
                         <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-lg">
                             <Image
@@ -24,7 +24,7 @@ const AboutUs = () => {
                         </div>
                     </div>
 
-                    {/* --- Text Content Section --- */}
+                    {/* Text Content Section */}
                     <div className="flex flex-col justify-center">
                         <h2 className="text-sm font-semibold uppercase tracking-widest text-red-600">
                             Tentang Kami
@@ -37,7 +37,7 @@ const AboutUs = () => {
                         </p>
                         <div className="mt-10">
                             <a
-                                href="/tentang-kami"
+                                href="/#"
                                 className="inline-flex items-center gap-2 rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                             >
                                 Selengkapnya

@@ -4,3 +4,21 @@
 body {
     font-family: "Poppins", sans-serif;
 }
+
+@keyframes marquee-slow {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee-slow {
+    animation: marquee-slow 40s linear infinite;
+}
+
+.group:hover .pause {
+    animation-play-state: paused;
+}

@@ -10,25 +10,25 @@ const products = [
         name: "Super Cub C125",
         category: "Legendary Cub",
         imageSrc: "/images/home/super-cub.png",
-        href: "/products/super-cub-c125",
+        href: "/#"
     },
     {
         name: "Genio",
         category: "Fashionable Scooter",
         imageSrc: "/images/home/genio.png",
-        href: "/products/genio",
+        href: "/#"
     },
     {
         name: "Forza",
         category: "Premium Sport Scooter",
         imageSrc: "/images/home/forza.png",
-        href: "/products/forza",
+        href: "/#"
     },
     {
         name: "CB150R",
         category: "Naked Sport Bike",
         imageSrc: "/images/home/cb150r.png",
-        href: "/products/cb150r",
+        href: "/#"
     }
 ];
 
@@ -63,7 +63,6 @@ const NewProducts = () => {
 
                 {/* Slider */}
                 <div className="relative mt-12 flex h-[35vh] items-center md:h-[45vh] lg:h-[50vh]">
-                    {/* Arrows */}
                     <button
                         onClick={handlePrev}
                         className="absolute left-0 top-1/2 z-30 -translate-y-1/2 rounded-full bg-white/50 p-2 text-gray-800 shadow-md transition hover:bg-white hover:scale-110 focus:outline-none lg:left-8"
