@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
 import ProductFeatures from '@/components/products/ProductFeatures';
@@ -10,24 +11,38 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
-// --- Tipe untuk props halaman dinamis ---
-// We will define the props inline in the component signature to avoid type inference issues.
-// type ProductDetailPageProps = {
-//     params: { slug: string };
-//     searchParams?: { [key: string]: string | string[] | undefined };
-// };
+// --- Type definition for page props, ensuring compatibility with Next.js ---
+type PageProps = {
+    params: { slug: string };
+    searchParams?: { [key: string]: string | string[] | undefined };
+};
 
-// This function generates static paths for each product at build time.
-// The 'async' keyword is not needed here as no await operations are performed.
+// --- Generate dynamic metadata for SEO ---
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const product = allProducts.find((p) => p.slug === params.slug);
+
+    if (!product) {
+        return {
+            title: 'Produk Tidak Ditemukan',
+            description: 'Produk yang Anda cari tidak dapat ditemukan.',
+        };
+    }
+
+    return {
+        title: `${product.name} | Spesifikasi & Harga Terbaru`,
+        description: product.shortDescription || `Lihat detail lengkap, spesifikasi, dan harga terbaru untuk ${product.name}.`,
+    };
+}
+
+// --- Generate static paths for all products at build time ---
 export function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-// The page component for displaying product details.
-// Props are typed inline to ensure compatibility with Next.js PageProps.
-const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
+// --- The page component for displaying product details ---
+const ProductDetailPage = ({ params }: PageProps) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
@@ -35,6 +50,16 @@ const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
     if (!product) {
         notFound();
     }
+
+    // --- Helper function to format price to IDR currency ---
+    const formatPrice = (price: number) => {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(price);
+    };
 
     return (
         <div className="bg-white">
@@ -78,7 +103,7 @@ const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap block sm:table-cell sm:text-right">
                                                         <div className="sm:hidden text-xs font-medium uppercase text-gray-500 mb-1">Harga</div>
-                                                        <div className="text-sm text-gray-700">Rp. {item.price}</div>
+                                                        <div className="text-sm text-gray-700">{formatPrice(item.price)}</div>
                                                     </td>
                                                 </tr>
                                             ))}
