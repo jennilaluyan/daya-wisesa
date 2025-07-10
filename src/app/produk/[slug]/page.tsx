@@ -1,4 +1,3 @@
-import type { InferGetStaticPropsType } from 'next';
 import { notFound } from 'next/navigation';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
