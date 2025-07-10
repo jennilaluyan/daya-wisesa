@@ -23,7 +23,7 @@ export async function generateStaticParams() {
     }));
 }
 
-const ProductDetailPage = ({ params, searchParams }: ProductDetailPageProps) => {
+const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
