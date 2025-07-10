@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
     Tag,
     Newspaper,
@@ -82,7 +83,7 @@ const HomeGrid = () => {
                 {/* Bento Grid Layout */}
                 <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
                     {gridItems.map((item) => (
-                        <a
+                        <Link
                             key={item.title}
                             href={item.href}
                             className={clsx(
@@ -113,7 +114,7 @@ const HomeGrid = () => {
                                     <ArrowRight size={16} />
                                 </div>
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>

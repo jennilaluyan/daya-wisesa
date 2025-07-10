@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import clsx from "clsx";
 import {
     Home, Info, Tag, Megaphone, CalendarDays, Bike, Network,
@@ -82,14 +83,14 @@ const Navbar = () => {
 
                     {/* Logo DAW */}
                     <div className="absolute left-1/2 -translate-x-1/2 md:relative md:left-0 md:translate-x-0">
-                        <a href="/" className="block">
+                        <Link href="/" className="block">
                             <Image
                                 src={logoDAW}
                                 alt="Logo Daya Adicipta Wisesa"
                                 className="h-10 w-auto object-contain"
                                 priority
                             />
-                        </a>
+                        </Link>
                     </div>
                 </div>
 
@@ -98,7 +99,7 @@ const Navbar = () => {
                     <ul className="flex items-center gap-8 text-sm font-semibold text-gray-800 h-full">
                         {mainNavItems.map(({ name, href }) => (
                             <li key={name} className="h-full flex items-center">
-                                <a href={href} className="hover:text-red-600 transition">{name}</a>
+                                <Link href={href} className="hover:text-red-600 transition">{name}</Link>
                             </li>
                         ))}
                         {/* LAINNYA Dropdown */}
@@ -117,10 +118,10 @@ const Navbar = () => {
                                 <ul className="p-2">
                                     {otherNavItems.map(({ name, href, icon: Icon }) => (
                                         <li key={name}>
-                                            <a href={href} className="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition">
+                                            <Link href={href} className="flex items-center gap-3 p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-50 transition">
                                                 <Icon size={20} />
                                                 <span className="text-sm font-medium">{name}</span>
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -191,10 +192,10 @@ const Navbar = () => {
                     <ul className="space-y-5">
                         {mobileNavItems.map(({ name, href, icon: Icon }) => (
                             <li key={name}>
-                                <a href={href} className="flex items-center gap-3 text-gray-900 hover:text-red-600 font-bold uppercase text-base">
+                                <Link href={href} className="flex items-center gap-3 text-gray-900 hover:text-red-600 font-bold uppercase text-base">
                                     <Icon size={20} strokeWidth={2.5} />
                                     {name}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>

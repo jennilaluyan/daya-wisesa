@@ -7,6 +7,7 @@ import { ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
 import { allProducts, productCategories } from '@/data/products'; // Impor dari file data
 import Footer from '@/components/general/Footer';
+import Link from 'next/link';
 
 // --- Komponen Kartu Produk ---
 const ProductCard = ({ product }: { product: typeof allProducts[0] }) => {
@@ -39,13 +40,13 @@ const ProductCard = ({ product }: { product: typeof allProducts[0] }) => {
 
                 {/* --- Tombol Aksi --- */}
                 <div className="mt-6">
-                    <a
+                    <Link
                         href={`/produk/${product.slug}`}
                         className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-2 text-sm font-semibold text-gray-700 transition-all hover:border-red-500 hover:text-red-600"
                     >
                         <span>Selengkapnya</span>
                         <ArrowRight className="h-4 w-4" />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Facebook, Instagram, Youtube, Mail, Phone, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const footerLinks = [
     {
@@ -45,22 +46,22 @@ const Footer = () => {
 
                     {/* Contact Info */}
                     <div className="md:col-span-2 lg:col-span-3">
-                        <a href="/" className="mb-6 inline-block text-xl font-bold text-white transition-colors hover:text-red-600">
+                        <Link href="/" className="mb-6 inline-block text-xl font-bold text-white transition-colors hover:text-red-600">
                             PT. Daya Adicipta Wisesa
-                        </a>
+                        </Link>
                         <p className="max-w-xs text-sm leading-6">
                             Jl. Raya Manado-Bitung KM 10 Kalawat – Minahasa Utara,
                             Sulawesi Utara
                         </p>
                         <div className="mt-6 space-y-3 text-sm">
-                            <a href="tel:0431812128" className="flex items-center justify-start gap-3 transition-colors hover:text-red-600">
+                            <Link href="tel:0431812128" className="flex items-center justify-start gap-3 transition-colors hover:text-red-600">
                                 <Phone size={16} />
                                 <span>(0431) 811999</span>
-                            </a>
-                            <a href="mailto:contact@daya-motora.com" className="flex items-center justify-start gap-3 transition-colors hover:text-red-600">
+                            </Link>
+                            <Link href="mailto:contact@daya-motora.com" className="flex items-center justify-start gap-3 transition-colors hover:text-red-600">
                                 <Mail size={16} />
                                 <span>it@daya-wisesa.com</span>
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
@@ -74,9 +75,9 @@ const Footer = () => {
                                 <ul className="mt-4 space-y-3">
                                     {column.links.map((link) => (
                                         <li key={link.name}>
-                                            <a href={link.href} className="text-sm transition-colors hover:text-red-600">
+                                            <Link href={link.href} className="text-sm transition-colors hover:text-red-600">
                                                 {link.name}
-                                            </a>
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -123,14 +124,14 @@ const Footer = () => {
                     </p>
                     <div className="flex items-center gap-4">
                         {socialLinks.map((social) => (
-                            <a
+                            <Link
                                 key={social.name}
                                 href={social.href}
                                 aria-label={social.name}
                                 className="text-gray-400 transition-colors hover:text-red-600"
                             >
                                 <social.icon size={20} />
-                            </a>
+                            </Link>
                         ))}
                     </div>
                 </div>

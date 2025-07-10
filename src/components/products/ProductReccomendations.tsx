@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { allProducts, Product } from '@/data/products';
 import { ArrowRight } from 'lucide-react';
 
@@ -37,10 +38,10 @@ const ProductRecommendations = ({ currentProductSlug }: { currentProductSlug: st
                                 </div>
                             </div>
                             <div className="mt-6">
-                                <a href={`/produk/${product.slug}`} className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-2 text-sm font-semibold text-gray-700 transition-all hover:border-red-500 hover:text-red-600">
+                                <Link href={`/produk/${product.slug}`} className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-2 text-sm font-semibold text-gray-700 transition-all hover:border-red-500 hover:text-red-600">
                                     <span>Selengkapnya</span>
                                     <ArrowRight className="h-4 w-4" />
-                                </a>
+                                </Link>
                             </div>
                         </div>
                     </div>

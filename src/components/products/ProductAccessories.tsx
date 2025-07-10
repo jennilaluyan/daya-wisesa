@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import type { Product } from '@/data/products';
 
@@ -16,10 +17,10 @@ const ProductAccessories = ({ product }: { product: Product }) => {
             <div className="container mx-auto max-w-7xl px-6">
                 <div className="flex items-center justify-between mb-8">
                     <h2 className="text-3xl font-bold text-gray-900">Aksesoris & Apparel</h2>
-                    <a href="#" className="flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-800">
+                    <Link href="#" className="flex items-center gap-2 text-sm font-semibold text-red-600 hover:text-red-800">
                         <span>Lihat Semua</span>
                         <ArrowRight size={16} />
-                    </a>
+                    </Link>
                 </div>
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                     {displayedItems.map((item) => (
@@ -44,13 +45,13 @@ const ProductAccessories = ({ product }: { product: Product }) => {
 
                                 {/* --- Tombol Aksi --- */}
                                 <div className="mt-6">
-                                    <a
+                                    <Link
                                         href={item.href}
                                         className="inline-flex items-center gap-2 rounded-full border border-gray-300 bg-white px-6 py-2 text-sm font-semibold text-gray-700 transition-all hover:border-red-500 hover:text-red-600"
                                     >
                                         <span>Lihat Detail</span>
                                         <ArrowRight className="h-4 w-4" />
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>

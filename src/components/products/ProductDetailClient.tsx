@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import type { Product } from '@/data/products'; // Impor tipe data
 
 // --- Komponen Client untuk bagian interaktif ---
@@ -72,9 +73,9 @@ const ProductDetailClient = ({ product }: { product: Product }) => {
                     </div>
                 </div>
                 <div className="mt-8">
-                    <a href="#" className="inline-block w-full rounded-md bg-red-600 px-8 py-3 text-center text-lg font-semibold text-white shadow-sm transition-colors hover:bg-red-700 sm:w-auto">
+                    <Link href="#" className="inline-block w-full rounded-md bg-red-600 px-8 py-3 text-center text-lg font-semibold text-white shadow-sm transition-colors hover:bg-red-700 sm:w-auto">
                         Hubungi Dealer
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

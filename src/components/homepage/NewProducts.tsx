@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // --- Product Data ---
@@ -120,13 +121,13 @@ const NewProducts = () => {
                 <div className="relative mt-8 text-center">
                     <p className="font-semibold uppercase tracking-wider text-red-600">{products[activeIndex].category}</p>
                     <h3 className="mt-1 text-4xl font-bold lg:text-6xl">{products[activeIndex].name}</h3>
-                    <a
+                    <Link
                         href={products[activeIndex].href}
                         className="mt-6 inline-flex items-center gap-2 rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                     >
                         <span>Lihat Detail</span>
                         <ArrowRight size={20} />
-                    </a>
+                    </Link>
                 </div>
             </div>
         </section>

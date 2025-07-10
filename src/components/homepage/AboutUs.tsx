@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import dayaWisesaPlace from "@/../public/images/home/about-us.jpg";
 
@@ -36,13 +37,13 @@ const AboutUs = () => {
                             PT. Daya Adicipta Wisesa adalah perusahaan yang bergerak di industri otomotif sebagai Main Dealer Sepeda Motor Honda dan suku cadang asli Sepeda Motor Honda untuk wilayah Sulawesi Utara, Gorontalo, dan Maluku Utara.
                         </p>
                         <div className="mt-10">
-                            <a
+                            <Link
                                 href="/"
                                 className="inline-flex items-center gap-2 rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                             >
                                 Selengkapnya
                                 <ArrowRight size={20} />
-                            </a>
+                            </Link>
                         </div>
                     </div>
 
