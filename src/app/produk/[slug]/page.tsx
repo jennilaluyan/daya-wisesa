@@ -11,14 +11,9 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
-// --- Type definition for page props, ensuring compatibility with Next.js ---
-type PageProps = {
-    params: { slug: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 // --- Generate dynamic metadata for SEO ---
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+// Props are typed inline to avoid conflicts with Next.js internal types.
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const product = allProducts.find((p) => p.slug === params.slug);
 
     if (!product) {
@@ -42,7 +37,8 @@ export function generateStaticParams() {
 }
 
 // --- The page component for displaying product details ---
-const ProductDetailPage = ({ params }: PageProps) => {
+// Props are typed inline to ensure compatibility.
+const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
