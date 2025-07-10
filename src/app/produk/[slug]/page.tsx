@@ -10,21 +10,14 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
-// ✅ Use this instead of a custom type
-type Props = {
-    params: {
-        slug: string;
-    };
-};
-
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-// ✅ Make the page component async and typed properly
-const ProductDetailPage = async ({ params }: Props) => {
+// ✅ DO NOT type the props manually — let Next.js infer it!
+export default async function Page({ params }: { params: { slug: string } }) {
     const product = allProducts.find((p) => p.slug === params.slug);
 
     if (!product) {
@@ -35,10 +28,9 @@ const ProductDetailPage = async ({ params }: Props) => {
         <div className="bg-white">
             <Navbar />
             <main>
+                {/* --- Bagian Atas Halaman (Slider) --- */}
                 <section>
-                    {product.galleryImages && (
-                        <ProductGallerySlider images={product.galleryImages} />
-                    )}
+                    {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
 
                 <section className="container mx-auto max-w-7xl px-6 py-12 lg:py-16">
@@ -52,19 +44,13 @@ const ProductDetailPage = async ({ params }: Props) => {
                     <div className="container mx-auto max-w-7xl px-6">
                         {product.priceList && (
                             <div>
-                                <h2 className="text-center text-3xl font-bold text-gray-900">
-                                    Daftar Harga {product.name}
-                                </h2>
+                                <h2 className="text-center text-3xl font-bold text-gray-900">Daftar Harga {product.name}</h2>
                                 <div className="mt-8 max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200">
                                     <table className="min-w-full">
                                         <thead className="bg-gray-100 hidden sm:table-header-group">
                                             <tr>
-                                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
-                                                    Tipe
-                                                </th>
-                                                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
-                                                    Harga
-                                                </th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Tipe</th>
+                                                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
@@ -83,9 +69,7 @@ const ProductDetailPage = async ({ params }: Props) => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <p className="text-center text-xs text-gray-500 mt-4">
-                                    *Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.
-                                </p>
+                                <p className="text-center text-xs text-gray-500 mt-4">*Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.</p>
                             </div>
                         )}
                         <ProductSpecifications product={product} />
@@ -101,6 +85,4 @@ const ProductDetailPage = async ({ params }: Props) => {
             <Footer />
         </div>
     );
-};
-
-export default ProductDetailPage;
+}
