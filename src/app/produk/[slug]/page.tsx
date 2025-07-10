@@ -11,9 +11,12 @@ import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 import type { Metadata, ResolvingMetadata } from 'next';
 
-// Define a type for the component's props, which will be reused.
+// Define a type for the component's props.
+// Including 'searchParams' makes this type fully compatible with Next.js's
+// internal PageProps, resolving build errors in strict environments like Vercel.
 type Props = {
     params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
 };
 
 // Generate metadata dynamically for each product page for better SEO.
@@ -49,7 +52,8 @@ export async function generateStaticParams() {
     }));
 }
 
-// Apply the 'Props' type to your component
+// Apply the 'Props' type to your component. We don't need to use searchParams,
+// but its presence in the type definition is crucial for a successful build.
 export default async function Page({ params }: Props) {
     const product = allProducts.find((p) => p.slug === params.slug);
 
