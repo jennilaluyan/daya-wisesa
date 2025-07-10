@@ -1,5 +1,3 @@
-// src/app/produk/[slug]/page.tsx
-
 import { notFound } from 'next/navigation';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
@@ -11,17 +9,45 @@ import ProductActionButtons from '@/components/products/ProductActionButtons';
 import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
+import type { Metadata, ResolvingMetadata } from 'next';
+
+// Define a type for the component's props, which will be reused.
+type Props = {
+    params: { slug: string };
+};
+
+// Generate metadata dynamically for each product page for better SEO.
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
+    const product = allProducts.find((p) => p.slug === params.slug);
+
+    if (!product) {
+        return {
+            title: 'Produk Tidak Ditemukan',
+            description: 'Halaman yang Anda cari tidak ada.',
+        }
+    }
+
+    // Optionally access and extend (rather than replace) parent metadata
+    const previousImages = (await parent).openGraph?.images || []
+
+    return {
+        title: `${product.name} | PT. Daya Adicipta Wisesa`,
+        description: `Detail, spesifikasi, dan harga terbaru untuk ${product.name}.`,
+        openGraph: {
+            images: [product.colors[0]?.imageSrc || '', ...previousImages],
+        },
+    }
+}
+
 
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
-
-// Define a type for the component's props
-type Props = {
-    params: { slug: string };
-};
 
 // Apply the 'Props' type to your component
 export default async function Page({ params }: Props) {
