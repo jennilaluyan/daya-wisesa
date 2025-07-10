@@ -11,10 +11,16 @@ import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 import type { Metadata, ResolvingMetadata } from 'next';
 
+// Define a single, robust type for the page's props.
+// This ensures consistency and satisfies stricter build environments like Vercel.
+type Props = {
+    params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
 // Generate metadata dynamically for each product page for better SEO.
-// We are using an inline type for props here to ensure maximum compatibility.
 export async function generateMetadata(
-    { params }: { params: { slug: string } },
+    { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const product = allProducts.find((p) => p.slug === params.slug);
@@ -45,9 +51,8 @@ export async function generateStaticParams() {
     }));
 }
 
-// Apply the props type directly to the component's function signature.
-// This is the most robust way to avoid type conflicts during the build process on Vercel.
-export default async function Page({ params }: { params: { slug: string } }) {
+// Apply the consistent 'Props' type to the Page component.
+export default async function Page({ params }: Props) {
     const product = allProducts.find((p) => p.slug === params.slug);
 
     if (!product) {
