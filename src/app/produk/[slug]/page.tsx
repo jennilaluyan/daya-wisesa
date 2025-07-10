@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
-        title: `${product.name} | PT. Daya Adicipta Wisesa`,
+        title: `PT. Daya Adicipta Wisesa`,
         description: `Lihat detail, spesifikasi, dan harga terbaru untuk Honda ${product.name}.`,
         openGraph: {
             images: [product.colors[0]?.imageSrc || ''],
