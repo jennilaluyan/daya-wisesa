@@ -11,19 +11,13 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
-// --- Tipe untuk props halaman ---
-type ProductDetailPageProps = {
-    params: { slug: string };
-    searchParams: { [key: string]: string | string[] | undefined };
-};
-
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
+const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
