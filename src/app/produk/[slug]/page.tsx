@@ -1,3 +1,4 @@
+import type { InferGetStaticPropsType } from 'next';
 import { notFound } from 'next/navigation';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
@@ -10,21 +11,22 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
+// ✅ Use this instead of a custom type
+type Props = {
+    params: {
+        slug: string;
+    };
+};
+
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-// ❌ Remove the ProductDetailPageProps type
-// ✅ Define params inline as expected by Next.js
-const ProductDetailPage = async ({
-    params,
-}: {
-    params: { slug: string };
-}) => {
-    const { slug } = params;
-    const product = allProducts.find((p) => p.slug === slug);
+// ✅ Make the page component async and typed properly
+const ProductDetailPage = async ({ params }: Props) => {
+    const product = allProducts.find((p) => p.slug === params.slug);
 
     if (!product) {
         notFound();
@@ -34,7 +36,6 @@ const ProductDetailPage = async ({
         <div className="bg-white">
             <Navbar />
             <main>
-                {/* --- Bagian Atas Halaman (Slider) --- */}
                 <section>
                     {product.galleryImages && (
                         <ProductGallerySlider images={product.galleryImages} />
