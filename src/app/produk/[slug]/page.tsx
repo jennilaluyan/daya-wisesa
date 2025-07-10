@@ -9,22 +9,29 @@ import ProductActionButtons from '@/components/products/ProductActionButtons';
 import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
-// --- Tipe untuk props halaman dinamis ---
-type ProductDetailPageProps = {
-    params: { slug: string };
-    searchParams?: { [key: string]: string | string[] | undefined };
-};
 
-export async function generateStaticParams() {
+// --- Tipe untuk props halaman dinamis ---
+// We will define the props inline in the component signature to avoid type inference issues.
+// type ProductDetailPageProps = {
+//     params: { slug: string };
+//     searchParams?: { [key: string]: string | string[] | undefined };
+// };
+
+// This function generates static paths for each product at build time.
+// The 'async' keyword is not needed here as no await operations are performed.
+export function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
+// The page component for displaying product details.
+// Props are typed inline to ensure compatibility with Next.js PageProps.
+const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
+    // If the product with the given slug is not found, render the 404 page.
     if (!product) {
         notFound();
     }
@@ -33,26 +40,26 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
         <div className="bg-white">
             <Navbar />
             <main>
-                {/* --- Bagian Atas Halaman (Slider) --- */}
+                {/* --- Top Section (Gallery Slider) --- */}
                 <section>
                     {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
 
                 <section className="container mx-auto max-w-7xl px-6 py-12 lg:py-16">
-                    {/* Info Utama & Pilihan Warna */}
+                    {/* Main Info & Color Options */}
                     <ProductDetailClient product={product} />
-                    {/* Tombol Aksi */}
+                    {/* Action Buttons */}
                     <ProductActionButtons />
                 </section>
 
-                {/* Bagian Fitur Interaktif */}
+                {/* Interactive Features Section */}
                 <ProductFeatures product={product} />
 
-                {/* Bagian Daftar Harga & Spesifikasi */}
+                {/* Price List & Specifications Section */}
                 <section className="bg-gray-50 py-16 lg:py-24">
                     <div className="container mx-auto max-w-7xl px-6">
                         {product.priceList && (
-                            <div>
+                            <div className="mb-16">
                                 <h2 className="text-center text-3xl font-bold text-gray-900">Daftar Harga {product.name}</h2>
                                 <div className="mt-8 max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200">
                                     <table className="min-w-full">
@@ -85,10 +92,10 @@ const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
                     </div>
                 </section>
 
-                {/* Bagian Aksesoris */}
+                {/* Accessories Section */}
                 <ProductAccessories product={product} />
 
-                {/* Bagian Rekomendasi Produk */}
+                {/* Product Recommendations Section */}
                 <section className="container mx-auto max-w-7xl px-6 py-16 lg:py-24">
                     <ProductRecommendations currentProductSlug={product.slug} />
                 </section>
