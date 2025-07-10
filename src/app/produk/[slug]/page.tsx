@@ -1,3 +1,5 @@
+// src/app/produk/[slug]/page.tsx
+
 import { notFound } from 'next/navigation';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
@@ -16,11 +18,18 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ DO NOT TYPE THIS COMPONENT — just use params inline
-export default async function Page({ params }: { params: { slug: string } }) {
+// Define a type for the component's props
+type Props = {
+    params: { slug: string };
+};
+
+// Apply the 'Props' type to your component
+export default async function Page({ params }: Props) {
     const product = allProducts.find((p) => p.slug === params.slug);
 
-    if (!product) notFound();
+    if (!product) {
+        notFound();
+    }
 
     return (
         <div className="bg-white">
