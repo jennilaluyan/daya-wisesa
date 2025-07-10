@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
 import { allProducts } from '@/data/products';
 import ProductDetailClient from '@/components/products/ProductDetailClient';
 import ProductFeatures from '@/components/products/ProductFeatures';
@@ -10,113 +9,113 @@ import ProductActionButtons from '@/components/products/ProductActionButtons';
 import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-// --- Generate dynamic metadata for SEO ---
-// Props are typed inline to avoid conflicts with Next.js internal types.
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+// Define a single, robust type for the page's props.
+// This ensures consistency and satisfies stricter build environments like Vercel.
+type Props = {
+    params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
+// Generate metadata dynamically for each product page for better SEO.
+export async function generateMetadata(
+    { params }: Props,
+    parent: ResolvingMetadata
+): Promise<Metadata> {
     const product = allProducts.find((p) => p.slug === params.slug);
 
     if (!product) {
         return {
             title: 'Produk Tidak Ditemukan',
-            description: 'Produk yang Anda cari tidak dapat ditemukan.',
-        };
+            description: 'Halaman yang Anda cari tidak ada.',
+        }
     }
 
+    // Optionally access and extend (rather than replace) parent metadata
+    const previousImages = (await parent).openGraph?.images || []
+
     return {
-        title: `${product.name} | Spesifikasi & Harga Terbaru`,
-        description: product.shortDescription || `Lihat detail lengkap, spesifikasi, dan harga terbaru untuk ${product.name}.`,
-    };
+        title: `${product.name} | PT. Daya Adicipta Wisesa`,
+        description: `Detail, spesifikasi, dan harga terbaru untuk ${product.name}.`,
+        openGraph: {
+            images: [product.colors[0]?.imageSrc || '', ...previousImages],
+        },
+    }
 }
 
-// --- Generate static paths for all products at build time ---
-export function generateStaticParams() {
+
+export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-// --- The page component for displaying product details ---
-// Props are typed inline to ensure compatibility.
-const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
-    const { slug } = params;
-    const product = allProducts.find((p) => p.slug === slug);
+// Apply the consistent 'Props' type to the Page component.
+export default async function Page({ params }: Props) {
+    const product = allProducts.find((p) => p.slug === params.slug);
 
-    // If the product with the given slug is not found, render the 404 page.
     if (!product) {
         notFound();
     }
-
-    // --- Helper function to format price to IDR currency ---
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(price);
-    };
 
     return (
         <div className="bg-white">
             <Navbar />
             <main>
-                {/* --- Top Section (Gallery Slider) --- */}
                 <section>
                     {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
 
                 <section className="container mx-auto max-w-7xl px-6 py-12 lg:py-16">
-                    {/* Main Info & Color Options */}
                     <ProductDetailClient product={product} />
-                    {/* Action Buttons */}
                     <ProductActionButtons />
                 </section>
 
-                {/* Interactive Features Section */}
                 <ProductFeatures product={product} />
 
-                {/* Price List & Specifications Section */}
                 <section className="bg-gray-50 py-16 lg:py-24">
                     <div className="container mx-auto max-w-7xl px-6">
                         {product.priceList && (
-                            <div className="mb-16">
-                                <h2 className="text-center text-3xl font-bold text-gray-900">Daftar Harga {product.name}</h2>
+                            <div>
+                                <h2 className="text-center text-3xl font-bold text-gray-900">
+                                    Daftar Harga {product.name}
+                                </h2>
                                 <div className="mt-8 max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200">
                                     <table className="min-w-full">
                                         <thead className="bg-gray-100 hidden sm:table-header-group">
                                             <tr>
-                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Tipe</th>
-                                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Harga</th>
+                                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Tipe</th>
+                                                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {product.priceList.map((item) => (
                                                 <tr key={item.type} className="block sm:table-row border-b sm:border-none">
-                                                    <td className="px-6 py-4 whitespace-nowrap block sm:table-cell">
+                                                    <td className="px-6 py-4 block sm:table-cell">
                                                         <div className="sm:hidden text-xs font-medium uppercase text-gray-500 mb-1">Tipe</div>
                                                         <div className="text-sm font-medium text-gray-900">{item.type}</div>
                                                     </td>
-                                                    <td className="px-6 py-4 whitespace-nowrap block sm:table-cell sm:text-right">
+                                                    <td className="px-6 py-4 block sm:table-cell sm:text-right">
                                                         <div className="sm:hidden text-xs font-medium uppercase text-gray-500 mb-1">Harga</div>
-                                                        <div className="text-sm text-gray-700">{formatPrice(item.price)}</div>
+                                                        <div className="text-sm text-gray-700">Rp. {item.price}</div>
                                                     </td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
-                                <p className="text-center text-xs text-gray-500 mt-4">*Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.</p>
+                                <p className="text-center text-xs text-gray-500 mt-4">
+                                    *Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.
+                                </p>
                             </div>
                         )}
                         <ProductSpecifications product={product} />
                     </div>
                 </section>
 
-                {/* Accessories Section */}
                 <ProductAccessories product={product} />
 
-                {/* Product Recommendations Section */}
                 <section className="container mx-auto max-w-7xl px-6 py-16 lg:py-24">
                     <ProductRecommendations currentProductSlug={product.slug} />
                 </section>
@@ -124,6 +123,4 @@ const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
             <Footer />
         </div>
     );
-};
-
-export default ProductDetailPage;
+}
