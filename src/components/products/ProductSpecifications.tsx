@@ -5,10 +5,16 @@ import type { Product } from '@/data/products';
 import clsx from 'clsx';
 
 const ProductSpecifications = ({ product }: { product: Product }) => {
-    if (!product.specifications) return null;
+    // Ambil kategori spesifikasi, atau array kosong jika tidak ada
+    const specCategories = product.specifications ? Object.keys(product.specifications) : [];
 
-    const specCategories = Object.keys(product.specifications);
-    const [activeTab, setActiveTab] = useState(specCategories[0]);
+    // Panggil hook di bagian paling atas. Inisialisasi dengan kategori pertama atau null.
+    const [activeTab, setActiveTab] = useState<string | null>(specCategories[0] || null);
+
+    // Lakukan return lebih awal jika tidak ada data yang bisa ditampilkan.
+    if (!product.specifications || specCategories.length === 0 || !activeTab) {
+        return null;
+    }
 
     return (
         <div className="mt-16 border-t border-gray-200 pt-16 lg:mt-24 lg:pt-24">

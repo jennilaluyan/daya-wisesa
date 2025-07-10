@@ -1,7 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { allProducts, Product } from '@/data/products';
+import { allProducts } from '@/data/products';
+import type { Product } from '@/data/products'; // Tipe diimpor di sini
 import { ArrowRight } from 'lucide-react';
 
 const ProductRecommendations = ({ currentProductSlug }: { currentProductSlug: string }) => {
@@ -14,10 +15,10 @@ const ProductRecommendations = ({ currentProductSlug }: { currentProductSlug: st
     if (recommendations.length === 0) return null;
 
     return (
-        <div className="mt-16 border-t border-gray-200 py-16 lg:py-24">
+        <div className="mt-16 border-t border-gray-200 pt-16 lg:mt-24 lg:pt-24">
             <h2 className="text-center text-3xl font-bold text-gray-900">Rekomendasi Lainnya</h2>
             <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {recommendations.map((product) => (
+                {recommendations.map((product: Product) => ( // Tipe digunakan di sini
                     <div key={product.slug} className="group flex flex-col overflow-hidden rounded-lg bg-gray-50 text-left">
                         <div className="relative h-64 w-full">
                             <Image
