@@ -9,41 +9,11 @@ import ProductActionButtons from '@/components/products/ProductActionButtons';
 import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
-import type { Metadata, ResolvingMetadata } from 'next';
-
-// Define a single, robust type for the page's props.
-// This ensures consistency and satisfies stricter build environments like Vercel.
-type Props = {
+// --- Tipe untuk props halaman dinamis ---
+type ProductDetailPageProps = {
     params: { slug: string };
-    searchParams: { [key: string]: string | string[] | undefined };
+    searchParams?: { [key: string]: string | string[] | undefined };
 };
-
-// Generate metadata dynamically for each product page for better SEO.
-export async function generateMetadata(
-    { params }: Props,
-    parent: ResolvingMetadata
-): Promise<Metadata> {
-    const product = allProducts.find((p) => p.slug === params.slug);
-
-    if (!product) {
-        return {
-            title: 'Produk Tidak Ditemukan',
-            description: 'Halaman yang Anda cari tidak ada.',
-        }
-    }
-
-    // Optionally access and extend (rather than replace) parent metadata
-    const previousImages = (await parent).openGraph?.images || []
-
-    return {
-        title: `${product.name} | PT. Daya Adicipta Wisesa`,
-        description: `Detail, spesifikasi, dan harga terbaru untuk ${product.name}.`,
-        openGraph: {
-            images: [product.colors[0]?.imageSrc || '', ...previousImages],
-        },
-    }
-}
-
 
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
@@ -51,9 +21,9 @@ export async function generateStaticParams() {
     }));
 }
 
-// Apply the consistent 'Props' type to the Page component.
-export default async function Page({ params }: Props) {
-    const product = allProducts.find((p) => p.slug === params.slug);
+const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
+    const { slug } = params;
+    const product = allProducts.find((p) => p.slug === slug);
 
     if (!product) {
         notFound();
@@ -63,40 +33,43 @@ export default async function Page({ params }: Props) {
         <div className="bg-white">
             <Navbar />
             <main>
+                {/* --- Bagian Atas Halaman (Slider) --- */}
                 <section>
                     {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
 
                 <section className="container mx-auto max-w-7xl px-6 py-12 lg:py-16">
+                    {/* Info Utama & Pilihan Warna */}
                     <ProductDetailClient product={product} />
+                    {/* Tombol Aksi */}
                     <ProductActionButtons />
                 </section>
 
+                {/* Bagian Fitur Interaktif */}
                 <ProductFeatures product={product} />
 
+                {/* Bagian Daftar Harga & Spesifikasi */}
                 <section className="bg-gray-50 py-16 lg:py-24">
                     <div className="container mx-auto max-w-7xl px-6">
                         {product.priceList && (
                             <div>
-                                <h2 className="text-center text-3xl font-bold text-gray-900">
-                                    Daftar Harga {product.name}
-                                </h2>
+                                <h2 className="text-center text-3xl font-bold text-gray-900">Daftar Harga {product.name}</h2>
                                 <div className="mt-8 max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200">
                                     <table className="min-w-full">
                                         <thead className="bg-gray-100 hidden sm:table-header-group">
                                             <tr>
-                                                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Tipe</th>
-                                                <th className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Harga</th>
+                                                <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">Tipe</th>
+                                                <th scope="col" className="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
                                             {product.priceList.map((item) => (
                                                 <tr key={item.type} className="block sm:table-row border-b sm:border-none">
-                                                    <td className="px-6 py-4 block sm:table-cell">
+                                                    <td className="px-6 py-4 whitespace-nowrap block sm:table-cell">
                                                         <div className="sm:hidden text-xs font-medium uppercase text-gray-500 mb-1">Tipe</div>
                                                         <div className="text-sm font-medium text-gray-900">{item.type}</div>
                                                     </td>
-                                                    <td className="px-6 py-4 block sm:table-cell sm:text-right">
+                                                    <td className="px-6 py-4 whitespace-nowrap block sm:table-cell sm:text-right">
                                                         <div className="sm:hidden text-xs font-medium uppercase text-gray-500 mb-1">Harga</div>
                                                         <div className="text-sm text-gray-700">Rp. {item.price}</div>
                                                     </td>
@@ -105,17 +78,17 @@ export default async function Page({ params }: Props) {
                                         </tbody>
                                     </table>
                                 </div>
-                                <p className="text-center text-xs text-gray-500 mt-4">
-                                    *Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.
-                                </p>
+                                <p className="text-center text-xs text-gray-500 mt-4">*Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.</p>
                             </div>
                         )}
                         <ProductSpecifications product={product} />
                     </div>
                 </section>
 
+                {/* Bagian Aksesoris */}
                 <ProductAccessories product={product} />
 
+                {/* Bagian Rekomendasi Produk */}
                 <section className="container mx-auto max-w-7xl px-6 py-16 lg:py-24">
                     <ProductRecommendations currentProductSlug={product.slug} />
                 </section>
@@ -123,4 +96,6 @@ export default async function Page({ params }: Props) {
             <Footer />
         </div>
     );
-}
+};
+
+export default ProductDetailPage;
