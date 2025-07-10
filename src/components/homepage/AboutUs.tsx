@@ -37,7 +37,7 @@ const AboutUs = () => {
                         </p>
                         <div className="mt-10">
                             <a
-                                href="/#"
+                                href="/"
                                 className="inline-flex items-center gap-2 rounded-md bg-red-600 px-6 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                             >
                                 Selengkapnya

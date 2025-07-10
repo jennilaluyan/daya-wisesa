@@ -10,25 +10,25 @@ const products = [
         name: "Super Cub C125",
         category: "Legendary Cub",
         imageSrc: "/images/home/super-cub.png",
-        href: "/#"
+        href: "/"
     },
     {
         name: "Genio",
         category: "Fashionable Scooter",
         imageSrc: "/images/home/genio.png",
-        href: "/#"
+        href: "/"
     },
     {
         name: "Forza",
         category: "Premium Sport Scooter",
         imageSrc: "/images/home/forza.png",
-        href: "/#"
+        href: "/"
     },
     {
         name: "CB150R",
         category: "Naked Sport Bike",
         imageSrc: "/images/home/cb150r.png",
-        href: "/#"
+        href: "/"
     }
 ];
 

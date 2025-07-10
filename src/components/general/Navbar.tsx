@@ -12,16 +12,16 @@ import logoDAW from "@/../public/images/home/Logo-DAW.png";
 
 const menuItems = [
     { name: "HOME", href: "/", icon: Home, desktop: false, mobile: true },
-    { name: "PRODUK", href: "/#", icon: Tag, desktop: "main", mobile: true },
-    { name: "PROMO", href: "/#", icon: Megaphone, desktop: "main", mobile: true },
-    { name: "BERITA", href: "/#", icon: Newspaper, desktop: "main", mobile: true },
-    { name: "EVENT", href: "/#", icon: CalendarDays, desktop: "main", mobile: true },
-    { name: "HUBUNGI KAMI", href: "/#", icon: Phone, desktop: "main", mobile: true },
-    { name: "TENTANG KAMI", href: "/#", icon: Info, desktop: "lainnya", mobile: true },
-    { name: "SAFETY RIDING", href: "/#", icon: Bike, desktop: "lainnya", mobile: true },
-    { name: "JARINGAN", href: "/#", icon: Network, desktop: "lainnya", mobile: true },
-    { name: "KOMUNITAS", href: "/#", icon: Users, desktop: "lainnya", mobile: true },
-    { name: "KARIR", href: "/#", icon: Briefcase, desktop: "lainnya", mobile: true },
+    { name: "PRODUK", href: "/produk", icon: Tag, desktop: "main", mobile: true },
+    { name: "PROMO", href: "/", icon: Megaphone, desktop: "main", mobile: true },
+    { name: "BERITA", href: "/", icon: Newspaper, desktop: "main", mobile: true },
+    { name: "EVENT", href: "/", icon: CalendarDays, desktop: "main", mobile: true },
+    { name: "HUBUNGI KAMI", href: "/", icon: Phone, desktop: "main", mobile: true },
+    { name: "TENTANG KAMI", href: "/", icon: Info, desktop: "lainnya", mobile: true },
+    { name: "SAFETY RIDING", href: "/", icon: Bike, desktop: "lainnya", mobile: true },
+    { name: "JARINGAN", href: "/", icon: Network, desktop: "lainnya", mobile: true },
+    { name: "KOMUNITAS", href: "/", icon: Users, desktop: "lainnya", mobile: true },
+    { name: "KARIR", href: "/", icon: Briefcase, desktop: "lainnya", mobile: true },
 ];
 
 const mainNavItems = menuItems.filter(item => item.desktop === "main");

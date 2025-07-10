@@ -7,26 +7,26 @@ const footerLinks = [
     {
         title: "Jelajahi",
         links: [
-            { name: "Produk", href: "/#" },
-            { name: "Promo", href: "/#" },
-            { name: "Berita", href: "/#" },
-            { name: "Event", href: "/#" },
+            { name: "Produk", href: "/produk" },
+            { name: "Promo", href: "/" },
+            { name: "Berita", href: "/" },
+            { name: "Event", href: "/" },
         ],
     },
     {
         title: "Perusahaan",
         links: [
-            { name: "Tentang Kami", href: "/#" },
-            { name: "Safety Riding", href: "/#" },
-            { name: "Karir", href: "/#" },
+            { name: "Tentang Kami", href: "/" },
+            { name: "Safety Riding", href: "/" },
+            { name: "Karir", href: "/" },
         ],
     },
     {
         title: "Dukungan",
         links: [
-            { name: "Hubungi Kami", href: "/#" },
-            { name: "Jaringan", href: "/#" },
-            { name: "Komunitas", href: "/#" },
+            { name: "Hubungi Kami", href: "/" },
+            { name: "Jaringan", href: "/" },
+            { name: "Komunitas", href: "/" },
         ],
     },
 ];

@@ -17,7 +17,7 @@ const gridItems = [
     {
         title: "Promo Terbaru",
         description: "Penawaran dan promo spesial untuk Anda.",
-        href: "/#",
+        href: "/",
         icon: Tag,
         imageSrc: "/images/home/promo.jpg",
         gridClass: "lg:col-span-2"
@@ -25,7 +25,7 @@ const gridItems = [
     {
         title: "Berita & Artikel",
         description: "Informasi terkini dari dunia Honda.",
-        href: "/#",
+        href: "/",
         icon: Newspaper,
         imageSrc: "/images/home/berita.jpeg",
         gridClass: "lg:col-span-1"
@@ -33,7 +33,7 @@ const gridItems = [
     {
         title: "Event Mendatang",
         description: "Jangan lewatkan acara seru kami.",
-        href: "/#",
+        href: "/",
         icon: CalendarDays,
         imageSrc: "/images/home/event.jpg",
         gridClass: "lg:col-span-1"
@@ -41,7 +41,7 @@ const gridItems = [
     {
         title: "Safety Riding",
         description: "Tips berkendara aman dan nyaman.",
-        href: "/#",
+        href: "/",
         icon: Bike,
         imageSrc: "/images/home/safety-riding.jpg",
         gridClass: "lg:col-span-1"
@@ -49,7 +49,7 @@ const gridItems = [
     {
         title: "Jaringan",
         description: "Temukan dealer terdekat di kota Anda.",
-        href: "/#",
+        href: "/",
         icon: Network,
         imageSrc: "/images/home/jaringan.png",
         gridClass: "lg:col-span-1"
@@ -57,7 +57,7 @@ const gridItems = [
     {
         title: "Komunitas Honda",
         description: "Bergabung dengan ribuan bikers lainnya.",
-        href: "/#",
+        href: "/",
         icon: Users,
         imageSrc: "/images/home/promo.jpg",
         gridClass: "lg:col-span-3"
