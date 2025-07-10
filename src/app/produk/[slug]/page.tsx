@@ -16,19 +16,16 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ DO NOT type the props manually — let Next.js infer it!
+// ✅ DO NOT TYPE THIS COMPONENT — just use params inline
 export default async function Page({ params }: { params: { slug: string } }) {
     const product = allProducts.find((p) => p.slug === params.slug);
 
-    if (!product) {
-        notFound();
-    }
+    if (!product) notFound();
 
     return (
         <div className="bg-white">
             <Navbar />
             <main>
-                {/* --- Bagian Atas Halaman (Slider) --- */}
                 <section>
                     {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
@@ -44,7 +41,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     <div className="container mx-auto max-w-7xl px-6">
                         {product.priceList && (
                             <div>
-                                <h2 className="text-center text-3xl font-bold text-gray-900">Daftar Harga {product.name}</h2>
+                                <h2 className="text-center text-3xl font-bold text-gray-900">
+                                    Daftar Harga {product.name}
+                                </h2>
                                 <div className="mt-8 max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200">
                                     <table className="min-w-full">
                                         <thead className="bg-gray-100 hidden sm:table-header-group">
@@ -69,7 +68,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
                                         </tbody>
                                     </table>
                                 </div>
-                                <p className="text-center text-xs text-gray-500 mt-4">*Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.</p>
+                                <p className="text-center text-xs text-gray-500 mt-4">
+                                    *Harga yang tertera adalah OTR (On The Road) dan dapat berbeda di setiap daerah.
+                                </p>
                             </div>
                         )}
                         <ProductSpecifications product={product} />
