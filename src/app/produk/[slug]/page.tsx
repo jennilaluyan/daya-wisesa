@@ -11,13 +11,19 @@ import ProductAccessories from '@/components/products/ProductAccessories';
 import Navbar from '@/components/general/Navbar';
 import Footer from '@/components/general/Footer';
 
+// --- Tipe untuk props halaman ---
+type ProductDetailPageProps = {
+    params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
 export async function generateStaticParams() {
     return allProducts.map((product) => ({
         slug: product.slug,
     }));
 }
 
-const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
+const ProductDetailPage = ({ params }: ProductDetailPageProps) => {
     const { slug } = params;
     const product = allProducts.find((p) => p.slug === slug);
 
@@ -31,12 +37,11 @@ const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
             <main>
                 {/* --- Bagian Atas Halaman (Slider) --- */}
                 <section>
-                    {/* Slider Galeri sekarang tanpa container */}
                     {product.galleryImages && <ProductGallerySlider images={product.galleryImages} />}
                 </section>
 
-                <section className="container mx-auto max-w-7xl px-6 pt-12 lg:pt-24">
-                    {/* Info Utama & Pilihan Varian */}
+                <section className="container mx-auto max-w-7xl px-6 py-12 lg:py-16">
+                    {/* Info Utama & Pilihan Warna */}
                     <ProductDetailClient product={product} />
                     {/* Tombol Aksi */}
                     <ProductActionButtons />
@@ -86,7 +91,7 @@ const ProductDetailPage = ({ params }: { params: { slug: string } }) => {
                 <ProductAccessories product={product} />
 
                 {/* Bagian Rekomendasi Produk */}
-                <section className="container mx-auto max-w-7xl px-6">
+                <section className="container mx-auto max-w-7xl px-6 py-16 lg:py-24">
                     <ProductRecommendations currentProductSlug={product.slug} />
                 </section>
             </main>
